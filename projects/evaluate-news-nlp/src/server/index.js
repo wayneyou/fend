@@ -1,4 +1,7 @@
+const dotenv = require('dotenv');
+dotenv.config();
 var path = require('path')
+var aylien = require("aylien_textapi")
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 
@@ -8,14 +11,20 @@ app.use(express.static('dist'))
 
 console.log(__dirname)
 
+// set aylien API credentias
+var textapi = new aylien({
+    application_id: process.env.ID,
+    application_key: process.env.API_KEY
+});
+
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
+    res.sendFile('dist/index.html')
+    // res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
+app.listen(8081, function () {
+    console.log('Example app listening on port 8081!')
 })
 
 app.get('/test', function (req, res) {
